@@ -1,46 +1,106 @@
-# Getting Started with Create React App
+# EBAC Jobs
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicação de listagem de vagas de emprego desenvolvida como exercício do curso EBAC. O projeto demonstra o uso de **Styled Components** para estilização em React, com suporte a **tema claro e escuro**.
 
-## Available Scripts
+## Sobre o projeto
 
-In the project directory, you can run:
+O EBAC Jobs exibe vagas para áreas de tecnologia, design e artes visuais. A interface inclui:
 
-### `npm start`
+- **Cabeçalho** com título e alternância de tema
+- **Hero** com imagem de fundo e overlay
+- **Formulário de busca** para filtrar vagas por título
+- **Lista de vagas** em grid responsivo
+- **Cards de vaga** com detalhes e efeito hover
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+A estilização foi migrada de CSS Modules para Styled Components, conforme o material de apoio do curso.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Tecnologias
 
-### `npm test`
+- [React](https://react.dev/) 18
+- [TypeScript](https://www.typescriptlang.org/)
+- [Styled Components](https://styled-components.com/) 5
+- [Create React App](https://create-react-app.dev/)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Funcionalidades
 
-### `npm run build`
+### Estilização com Styled Components
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Cada componente estilizado possui um arquivo `styles.ts` com os elementos criados via `styled`, por exemplo `styled.header`, `styled.form` e `styled.li`. As cores vêm do tema ativo através de `props.theme`.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Tema claro e escuro
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+O projeto oferece dois temas definidos em [`src/styles/theme.ts`](src/styles/theme.ts):
 
-### `npm run eject`
+| Propriedade   | Uso                                      |
+| ------------- | ---------------------------------------- |
+| `principal`   | Destaques, bordas, botões                |
+| `secundaria`  | Fundos de cards, cabeçalho e formulário  |
+| `fundo`       | Cor de fundo da página                   |
+| `texto`       | Texto padrão e campos de input           |
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+O [`ThemeContext`](src/contexts/ThemeContext.tsx) gerencia o tema ativo, aplica estilos globais no `body` e persiste a preferência do usuário em `localStorage` (`ebac-jobs-tema`).
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+O botão **Modo escuro** / **Modo claro** no cabeçalho alterna entre os temas.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Busca de vagas
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+O formulário filtra as vagas pelo título (case-insensitive). Os dados são mockados em [`src/containers/ListaVagas/index.tsx`](src/containers/ListaVagas/index.tsx).
 
-## Learn More
+## Estrutura do projeto
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+src/
+├── components/
+│   ├── Cabecalho/      # Cabeçalho + theme switcher
+│   ├── Hero/           # Banner principal
+│   ├── FormVagas/      # Formulário de pesquisa
+│   ├── Vaga/           # Card individual de vaga
+│   └── ThemeSwitcher/  # Botão de alternância de tema
+├── containers/
+│   └── ListaVagas/     # Lista, filtro e composição das vagas
+├── contexts/
+│   └── ThemeContext.tsx
+├── styles/
+│   ├── theme.ts        # Definição dos temas
+│   └── styled.d.ts     # Tipagem do DefaultTheme
+├── global.css          # Reset CSS e classe .container
+├── App.tsx
+└── index.tsx
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Como executar
+
+Pré-requisitos: [Node.js](https://nodejs.org/) (versão LTS recomendada).
+
+```bash
+# Instalar dependências
+npm install
+
+# Servidor de desenvolvimento (http://localhost:3000)
+npm start
+
+# Build de produção
+npm run build
+
+# Testes
+npm test
+```
+
+## Paleta de cores (tema claro)
+
+| Nome        | Hex       |
+| ----------- | --------- |
+| Principal   | `#a7727d` |
+| Secundária  | `#f9f5e7` |
+| Fundo       | `#ffffff` |
+| Texto       | `#333333` |
+
+O tema escuro utiliza tons mais escuros de fundo, mantendo a identidade visual em rosa/bege.
+
+## Tipagem do tema
+
+O arquivo [`src/styles/styled.d.ts`](src/styles/styled.d.ts) estende o `DefaultTheme` do Styled Components para que `theme.cores` e `theme.modo` tenham autocomplete no TypeScript.
+
+## Licença
+
+Projeto educacional — curso EBAC.
